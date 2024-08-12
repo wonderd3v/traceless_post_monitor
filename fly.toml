@@ -3,8 +3,8 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'traceless-instagram-post-monitor'
-primary_region = 'bog'
+app = 'post-monitoring-traceless'
+primary_region = 'mia'
 
 [build]
 

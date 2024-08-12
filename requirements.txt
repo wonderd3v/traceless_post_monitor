@@ -1,4 +1,6 @@
 instagrapi
 asyncio
 Pillow
-dotenv
+python-dotenv
+APScheduler==3.9.1.post1
+pytz

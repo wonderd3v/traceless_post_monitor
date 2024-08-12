@@ -7,9 +7,8 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install any needed packages
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir instagrapi asyncio Pillow python-dotenv
+# Install any necessary dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Command to run your script
 CMD ["python", "post_comments.py"]
