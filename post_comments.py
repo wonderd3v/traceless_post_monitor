@@ -3,6 +3,7 @@ import asyncio
 import json
 from instagrapi import Client
 from dotenv import load_dotenv 
+import signal
 
 # Load environment variables from .env file
 load_dotenv()
@@ -59,7 +60,7 @@ async def monitor_comments(cl, post_url, trigger_word, response_message, message
                 await asyncio.sleep(message_delay_seconds)
         
         print("Checked comments, sleeping now...")
-        await asyncio.sleep(60)
+        await asyncio.sleep(60)  # Check every minute
 
 async def main():
     username = os.getenv("INSTAGRAM_USERNAME")
@@ -84,5 +85,14 @@ async def main():
 
     await monitor_comments(cl, post_url, trigger_word, response_message, message_delay_seconds)
 
+def handle_shutdown():
+    print("Shutting down...")
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    loop = asyncio.get_event_loop()
+    for sig in (signal.SIGINT, signal.SIGTERM):
+        loop.add_signal_handler(sig, handle_shutdown)
+    try:
+        asyncio.run(main())
+    except (KeyboardInterrupt, SystemExit):
+        pass
